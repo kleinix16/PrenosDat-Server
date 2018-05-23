@@ -33,7 +33,7 @@ import javax.ws.rs.core.Response;
 @RolesAllowed("BASIC_USER")
 public class TempHumResource {
 
-    private final TempHum temphumDAO;
+    private final TempHumDAO temphumDAO;
 
     public TempHumResource(TempHumDAO temphumDAO) {
         this.temphumDAO = temphumDAO;
@@ -74,22 +74,33 @@ public class TempHumResource {
         return new View("temphumAddEdit.ftl", StandardCharsets.UTF_8) {
         };
     }
+    
+    
+    @POST
+    @Path("/new")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @UnitOfWork
+    public TempHum addNewData(@FormParam("date") String date, @FormParam("temp") float temp, @FormParam("hum") int hum) {
+        return temphumDAO.create(new TempHum(date,temp,hum));
+    }
+    
 
     @POST
     @Path("/edit")
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
-    public TempHumView editTempHum(@FormParam("id") String _id, @FormParam("content") String content /* TempHum temphum*/) {
+    public TempHumView editTempHum(@FormParam("id") String _id, @FormParam("date") String date, @FormParam("temp") float temp, @FormParam("hum") int hum  /* TempHum temphum*/) {
         Optional<TempHum> result = temphumDAO.findById(Long.parseLong(_id));
         if (result.isPresent()) {
-            result.get().setContent(content);
+            result.get().setDate(date);
             return new TempHumView(result.get());
         } else {
-            TempHum create = temphumDAO.create(new TempHum(content));
+            TempHum create = temphumDAO.create(new TempHum(date,temp,hum));
             return new TempHumView(create);
         }
     }
+    
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
