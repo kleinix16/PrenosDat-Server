@@ -25,11 +25,12 @@ import org.hibernate.SessionFactory;
 
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
+//skuska
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
     static SessionFactory buildSessionFactory;
 
-    private final HibernateBundle<HelloWorldConfiguration> hibernateBundle = new HibernateBundle<HelloWorldConfiguration>(TempHum.class) {
+    private final HibernateBundle<HelloWorldConfiguration> hibernateBundle = new HibernateBundle<HelloWorldConfiguration>(Data.class) {
         @Override
         public PooledDataSourceFactory getDataSourceFactory(HelloWorldConfiguration t) {
             return t.getDataSourceFactory();
@@ -64,9 +65,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public void run(HelloWorldConfiguration configuration,
             Environment environment) {
 
-        final TempHumDAO dao = new TempHumDAO(hibernateBundle.getSessionFactory());
+        final DataDAO dao = new DataDAO(hibernateBundle.getSessionFactory());
 
-        final TempHumResource temphumResource = new TempHumResource(dao);
+        final DataResource temphumResource = new DataResource(dao);
 
         final TemplateHealthCheck healthCheck
                 = new TemplateHealthCheck(configuration.getTemplate());
