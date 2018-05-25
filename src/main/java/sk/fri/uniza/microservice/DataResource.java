@@ -80,7 +80,7 @@ public class DataResource {
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
-    public Data addNewData(@FormParam("date") String date, @FormParam("temp") float temp, @FormParam("hum") int hum) {
+    public Data addNewData(@FormParam("date") String date, @FormParam("temp") int temp, @FormParam("hum") int hum) {
         return dataDAO.create(new Data(date,temp,hum));
     }
     
@@ -90,7 +90,7 @@ public class DataResource {
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
-    public DataView editTempHum(@FormParam("id") String _id, @FormParam("date") String date, @FormParam("temp") float temp, @FormParam("hum") int hum  /* TempHum temphum*/) {
+    public DataView editTempHum(@FormParam("id") String _id, @FormParam("date") String date, @FormParam("temp") int temp, @FormParam("hum") int hum  /* TempHum temphum*/) {
         Optional<Data> result = dataDAO.findById(Long.parseLong(_id));
         if (result.isPresent()) {
             result.get().setDate(date);

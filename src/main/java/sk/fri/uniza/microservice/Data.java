@@ -38,7 +38,7 @@ public class Data implements Serializable {
     @Length(max = 20)
     private String dateAndTime;
     
-    private float temp;
+    private int temp;
     
     private int hum;
 
@@ -46,13 +46,13 @@ public class Data implements Serializable {
         // Jackson deserialization   
     }
 
-    public Data(String date, float temp, int hum) {
+    public Data(String date, int temp, int hum) {
         this.dateAndTime = date;
         this.temp = temp;
         this.hum = hum;
     }
 
-    public Data(long id, String date, float temp, int hum) {
+    public Data(long id, String date, int temp, int hum) {
         this.id = id;
         this.dateAndTime = date;
         this.temp = temp;
@@ -77,11 +77,11 @@ public class Data implements Serializable {
         return dateAndTime;
     }
     
-    public float getTemp() {
+    public int getTemp() {
         return temp;
     }
 
-    public void setTemp(float temp) {
+    public void setTemp(int temp) {
         this.temp = temp;
     }
     
