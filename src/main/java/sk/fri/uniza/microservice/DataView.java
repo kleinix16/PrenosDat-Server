@@ -20,7 +20,7 @@ public class DataView extends View {
     }
 
     public DataView(Data temphum) {
-        super("data.ftl");
+        super("Daat.ftl");
         this.temphum = temphum;
     }
 }

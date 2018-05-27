@@ -20,7 +20,7 @@ public class DataAddEditView extends View {
     }
 
     public DataAddEditView(Data temphum) {
-        super("dataAddEdit.ftl");
+        super("addEdit.ftl");
         this.temphum = temphum;
     }  
 }

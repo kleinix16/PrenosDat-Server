@@ -1,0 +1,329 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>ECAV Hybe - CHAT</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/klein.css') }}">
+
+  <style type="text/css">
+    body {
+      background: #E7E7E7 !important;
+    }
+
+    body {
+      min-height: 2000px;
+      padding-top: 70px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div class="brand-centered">
+        <a class="navbar-brand">
+          <img style="margin-right: 10px; padding: 0;" src="{{ url_for('static', filename='logo_hybe.png') }}">
+        </a>
+      </div>
+
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav ">
+          <li>
+            <a href="./">Prehľad</a>
+          </li>
+          <li class="active">
+            <a href="{{ url_for('chat') }}">CHAT</a>
+          </li>
+          <li>
+            <a href="{{ url_for('settings') }}">Nastavenia</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kamery
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{{ url_for('kamera1') }}">Kamera 1</a>
+              </li>
+              <li>
+                <a href="{{ url_for('kamera2') }}">Kamera 2</a>
+              </li>
+              <li>
+                <a href="{{ url_for('kamera3') }}">Kamera 3</a>
+              </li>
+              <li>
+                <a href="{{ url_for('kamera4') }}">Kamera 4</a>
+              </li>
+              <li>
+                <a href="{{ url_for('kamera5') }}">Kamera 5</a>
+              </li>
+              <li>
+                <a href="{{ url_for('kamera6') }}">Kamera 6</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a href="{{ url_for('obr1') }}">Obrazovka 1</a>
+              </li>
+              <li>
+                <a href="{{ url_for('obr2') }}">Obrazovka 2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="{{ url_for('dark_index') }}">Nočná akcia</a>
+          </li>
+          <li class="active">
+            <a href="./">Denná akcia
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12" id='CHAT'>
+        <div class="thumbnail bot-pad">
+          <b>Konverzácia</b>
+          <div style="height:300px;border:2px solid #ccc;font:16px/26px Georgia, Garamond, Serif; overflow:auto; text-align:left" id="messages">
+          </div>
+          <div class="form-inline" id='chat_input'>
+            <input type="text" class="form-control text-center" placeholder="Nick" id="username">
+            <select class="form-control" id="komu">
+              <option selected value="">Všetkým</option>
+              <option value="Kamera 1-  ">Kamera 1</option>
+              <option value="Kamera 2-  ">Kamera 2</option>
+              <option value="Kamera 3-  ">Kamera 3</option>
+              <option value="Kamera 4-  ">Kamera 4</option>
+              <option value="Kamera 5-  ">Kamera 5</option>
+              <option value="Kamera 6-  ">Kamera 6</option>
+              <option value="Réžia-  ">Réžia</option>
+              <option value="Zvukár-  ">Zvukár</option>
+            </select>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Text správy" id="myMessage" aria-label="...">
+              <div class="input-group-btn dropup">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RR
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <a href="#" id="RR1">Naprav si kabel</a>
+                  </li>
+                  <li>
+                    <a href="#" id="RR2">Zosvetli si obraz</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="#" id="RR3">Radsej vypni kameru</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <input type="submit" name="send" id="sendbutton" value="Send" class="btn btn-success">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
+  </script>
+
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+
+  <script>
+    $(document).ready(function () {
+
+
+      var socket = io.connect();
+      socket.on('connect', function (e) {
+        socket.send('User has connected!');
+        console.log('CONNECTED');
+      });
+
+      socket.on('message', function (msg) {
+        $("#messages").append($('<li>').text(msg));
+        $("#messages").scrollTop($("#messages")[0].scrollHeight)
+        console.log('Received message');
+      });
+
+      $('#sendbutton').on('click', function () {
+        if (!($('#username').val()).localeCompare("")) {
+          socket.send((("NEZNAMI: ").concat($('#komu').val())).concat($('#myMessage').val()));
+        } else {
+          socket.send((($('#username').val().toUpperCase()).concat(': ')).concat($('#komu').val()).concat($(
+            '#myMessage').val()));
+        }
+        $("#myMessage").val('');
+      });
+
+
+      $('#RR1').on('click', function () {
+        $("#myMessage").val(document.getElementById('RR1').text);
+      });
+      $('#RR2').on('click', function () {
+        $("#myMessage").val(document.getElementById('RR2').text);
+      });
+      $('#RR3').on('click', function () {
+        $("#myMessage").val(document.getElementById('RR3').text);
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
+
+
+
+<script>
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+    'November', 'December'
+  ];
+  var config = {
+    type: 'line',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: window.chartColors.red,
+        borderColor: window.chartColors.red,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+        fill: false,
+      }, {
+        label: 'My Second dataset',
+        fill: false,
+        backgroundColor: window.chartColors.blue,
+        borderColor: window.chartColors.blue,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart'
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    }
+  };
+
+  window.onload = function () {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    window.myLine = new Chart(ctx, config);
+  };
+
+  document.getElementById('randomizeData').addEventListener('click', function () {
+    config.data.datasets.forEach(function (dataset) {
+      dataset.data = dataset.data.map(function () {
+        return randomScalingFactor();
+      });
+
+    });
+
+    window.myLine.update();
+  });
+
+  var colorNames = Object.keys(window.chartColors);
+  document.getElementById('addDataset').addEventListener('click', function () {
+    var colorName = colorNames[config.data.datasets.length % colorNames.length];
+    var newColor = window.chartColors[colorName];
+    var newDataset = {
+      label: 'Dataset ' + config.data.datasets.length,
+      backgroundColor: newColor,
+      borderColor: newColor,
+      data: [],
+      fill: false
+    };
+
+    for (var index = 0; index < config.data.labels.length; ++index) {
+      newDataset.data.push(randomScalingFactor());
+    }
+
+    config.data.datasets.push(newDataset);
+    window.myLine.update();
+  });
+
+
+
+  document.getElementById('removeDataset').addEventListener('click', function () {
+    config.data.datasets.splice(0, 1);
+    window.myLine.update();
+  });
+
+  document.getElementById('removeData').addEventListener('click', function () {
+    config.data.labels.splice(-1, 1); // remove the label first
+
+    config.data.datasets.forEach(function (dataset) {
+      dataset.data.pop();
+    });
+
+    window.myLine.update();
+  });
+</script>

@@ -20,7 +20,7 @@ public class DataListView extends View{
     }
     
     public DataListView(List<Data> temphums) {
-        super("dataList.ftl");
+        super("list.ftl");
         this.datas = temphums;
     }
 }

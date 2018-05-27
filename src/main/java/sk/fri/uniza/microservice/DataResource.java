@@ -8,6 +8,7 @@ package sk.fri.uniza.microservice;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 import io.dropwizard.views.View;
+import static java.lang.System.console;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -71,7 +72,7 @@ public class DataResource {
     @Produces(MediaType.TEXT_HTML)
     @UnitOfWork
     public View getAddForm() {
-        return new View("dataAddEdit.ftl", StandardCharsets.UTF_8) {
+        return new View("addEdit.ftl", StandardCharsets.UTF_8) {
         };
     }
     
@@ -80,8 +81,8 @@ public class DataResource {
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
-    public Data addNewData(@FormParam("date") String date, @FormParam("temp") int temp, @FormParam("hum") int hum) {
-        return dataDAO.create(new Data(date,temp,hum));
+    public void addNewData(@FormParam("date") String date, @FormParam("temp") int temp, @FormParam("hum") int hum) {
+        dataDAO.create(new Data(date,temp,hum));
     }
     
 
@@ -91,6 +92,7 @@ public class DataResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
     public DataView editTempHum(@FormParam("id") String _id, @FormParam("date") String date, @FormParam("temp") int temp, @FormParam("hum") int hum  /* TempHum temphum*/) {
+                
         Optional<Data> result = dataDAO.findById(Long.parseLong(_id));
         if (result.isPresent()) {
             result.get().setDate(date);
@@ -144,6 +146,14 @@ public class DataResource {
     @UnitOfWork
     public DataListView getTempHum() {
         return new DataListView(dataDAO.findAll());
+    }
+    
+    @GET
+    @Path("/chart")
+    @Produces(MediaType.TEXT_HTML)
+    @UnitOfWork
+    public DataChartView getChart() {
+        return new DataChartView(dataDAO.findAll());
     }
 
     @GET
