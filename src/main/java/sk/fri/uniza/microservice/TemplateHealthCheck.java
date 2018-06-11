@@ -7,14 +7,27 @@ package sk.fri.uniza.microservice;
 
 import com.codahale.metrics.health.HealthCheck;
 
+/**
+ *  zakladny testovaci subor
+ * @author klein
+ */
 public class TemplateHealthCheck extends HealthCheck {
 
     private final String template;
 
+    /**
+     *
+     * @param template
+     */
     public TemplateHealthCheck(String template) {
         this.template = template;
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     protected Result check() throws Exception {
         final String temphum = String.format(template, "TEST");

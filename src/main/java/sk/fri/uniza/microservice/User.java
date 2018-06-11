@@ -8,16 +8,29 @@ package sk.fri.uniza.microservice;
 import java.security.Principal;
 import java.util.Set;
 
+/**
+ *
+ * @author klein
+ */
 public class User implements Principal {
     private final String name;
 
     private final Set<String> roles;
 
+    /**
+     *
+     * @param name
+     */
     public User(String name) {
         this.name = name;
         this.roles = null;
     }
 
+    /**
+     *
+     * @param name
+     * @param roles
+     */
     public User(String name, Set<String> roles) {
         this.name = name;
         this.roles = roles;
@@ -27,10 +40,18 @@ public class User implements Principal {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return (int) (Math.random() * 100);
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<String> getRoles() {
         return roles;
     }

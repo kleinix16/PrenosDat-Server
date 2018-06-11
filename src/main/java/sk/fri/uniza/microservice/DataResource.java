@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author klein, simon
+ * @author klein
  */
 @Path("/data")
 @RolesAllowed("BASIC_USER")
@@ -36,10 +36,19 @@ public class DataResource {
 
     private final DataDAO dataDAO;
 
+    /**
+     *  Vytvorenie komunikacneho kanalu s databazou
+     * @param temphumDAO
+     */
     public DataResource(DataDAO temphumDAO) {
         this.dataDAO = temphumDAO;
     }
 
+    /**
+     *  Vyhladanie dat z databazy
+     * @param id
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/{id}")
     @Produces(MediaType.TEXT_HTML)
@@ -54,6 +63,11 @@ public class DataResource {
         throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
     }
 
+    /**
+     * Uprava dat v databaze
+     * @param id
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/edit/{id}")
     @Produces(MediaType.TEXT_HTML)
@@ -67,6 +81,10 @@ public class DataResource {
         throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
     }
 
+    /**
+     * Pridanie dat do databazy
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/add")
     @Produces(MediaType.TEXT_HTML)
@@ -76,7 +94,12 @@ public class DataResource {
         };
     }
     
-    
+    /**
+     * Pridanie dat do databazy
+     * @param date
+     * @param temp
+     * @param hum
+     */
     @POST
     @Path("/new")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -85,7 +108,14 @@ public class DataResource {
         dataDAO.create(new Data(date,temp,hum));
     }
     
-
+    /**
+     * Uprava dat v databaze
+     * @param _id
+     * @param date
+     * @param temp
+     * @param hum
+     * @return
+     */
     @POST
     @Path("/edit")
     @Produces(MediaType.TEXT_HTML)
@@ -105,7 +135,11 @@ public class DataResource {
         }
     }
     
-
+    /**
+     *  Pridanie dat do databazy
+     * @param temphum
+     * @return
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
@@ -113,6 +147,11 @@ public class DataResource {
         return dataDAO.create(temphum);
     }
 
+    /**
+     * Vymazanie dat z databazy
+     * @param id
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/delete/{id}")
     @Produces(MediaType.TEXT_HTML)
@@ -126,6 +165,11 @@ public class DataResource {
         throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
     }
     
+    /**
+     * Vymazanie dat z databazy
+     * @param id
+     * @return
+     */
     @DELETE
     @RolesAllowed("ADMIN")
     @Path("/{id}")
@@ -140,6 +184,10 @@ public class DataResource {
         throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
     }
     
+    /**
+     * Generovanie webovej stranky s listom dat
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/list")
     @Produces(MediaType.TEXT_HTML)
@@ -148,6 +196,10 @@ public class DataResource {
         return new DataListView(dataDAO.findAll());
     }
     
+    /**
+     * generovanie webovej strnaky s grafmi
+     * @return webova stranka - free maker templater
+     */
     @GET
     @Path("/chart")
     @Produces(MediaType.TEXT_HTML)
@@ -156,6 +208,10 @@ public class DataResource {
         return new DataChartView(dataDAO.findAll());
     }
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork

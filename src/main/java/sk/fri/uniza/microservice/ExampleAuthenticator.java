@@ -16,6 +16,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Basic authentification
+ * @author klein
+ */
 public class ExampleAuthenticator implements Authenticator<BasicCredentials, User> {
     /**
      * Valid users with mapping user -> roles
@@ -26,6 +30,12 @@ public class ExampleAuthenticator implements Authenticator<BasicCredentials, Use
         "admin", ImmutableSet.of("ADMIN", "BASIC_USER")
     );
 
+    /**
+     * Kontolovania pristupu uzivateľov
+     * @param credentials
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
         boolean correctLogin = false;

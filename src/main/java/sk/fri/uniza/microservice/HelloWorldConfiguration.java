@@ -7,7 +7,8 @@ package sk.fri.uniza.microservice;
 
 /**
  *
- * @author klein, simon
+ * @author klein
+ * 
  */
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +21,10 @@ import javax.validation.constraints.NotNull;
 import org.dhatim.dropwizard.jwt.cookie.authentication.JwtCookieAuthConfiguration;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ *  Vytvaranie hlavnej konfiguracie servera
+ * @author klein
+ */
 public class HelloWorldConfiguration extends Configuration {
 
     @Valid
@@ -30,11 +35,19 @@ public class HelloWorldConfiguration extends Configuration {
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
 
+    /**
+     * 
+     * @return
+     */
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
     }
 
+    /**
+     *
+     * @param dataSourceFactory
+     */
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory dataSourceFactory) {
         this.database = dataSourceFactory;
@@ -46,31 +59,55 @@ public class HelloWorldConfiguration extends Configuration {
     @NotEmpty
     private String defaultName = "Stranger";
 
+    /**
+     *
+     * @return
+     */
     @JsonProperty
     public String getTemplate() {
         return template;
     }
 
+    /**
+     *
+     * @param template
+     */
     @JsonProperty
     public void setTemplate(String template) {
         this.template = template;
     }
 
+    /**
+     *
+     * @return
+     */
     @JsonProperty
     public String getDefaultName() {
         return defaultName;
     }
 
+    /**
+     *
+     * @param name
+     */
     @JsonProperty
     public void setDefaultName(String name) {
         this.defaultName = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @JsonProperty("viewRendererConfiguration")
     public Map<String, Map<String, String>> getViewRendererConfiguration() {
         return viewRendererConfiguration;
     }
 
+    /**
+     *
+     * @param viewRendererConfiguration
+     */
     @JsonProperty("viewRendererConfiguration")
     public void setViewRendererConfiguration(Map<String, Map<String, String>> viewRendererConfiguration) {
         final ImmutableMap.Builder<String, Map<String, String>> builder = ImmutableMap.builder();

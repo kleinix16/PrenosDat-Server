@@ -27,6 +27,11 @@ import org.hibernate.SessionFactory;
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
 //skuska
+
+/**
+ *
+ * @author klein
+ */
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
     static SessionFactory buildSessionFactory;
@@ -38,16 +43,29 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         }
     };
 
+    /**
+     *  Hlavny program
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
 
         new HelloWorldApplication().run(args);
     }
 
+    /**
+     *  Nazov aplikacie
+     * @return
+     */
     @Override
     public String getName() {
         return "hello-world";
     }
 
+    /**
+     *  Inicializacia
+     * @param bootstrap
+     */
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
         
@@ -62,6 +80,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         });
     }
 
+    /**
+     * Hlavna cast programu
+     * @param configuration
+     * @param environment
+     */
     @Override
     public void run(HelloWorldConfiguration configuration,
             Environment environment) {

@@ -9,16 +9,24 @@ import io.dropwizard.views.View;
 
 /**
  *
- * @author klein, simon
+ * @author klein
  */
 public class DataAddEditView extends View {
 
     private final Data temphum;
 
+    /**
+     *  Vyhlada data v databaze a vracia ich ako navratovuhodnotu
+     * @return temphum
+     */
     public Data getData() {
         return temphum;
     }
 
+    /**
+     *  Vygeneruje staticku stranku pre vpridavanie a editaciu Dat
+     * @param temphum
+     */
     public DataAddEditView(Data temphum) {
         super("addEdit.ftl");
         this.temphum = temphum;

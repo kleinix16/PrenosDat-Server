@@ -15,10 +15,18 @@ public class DataView extends View {
 
     private final Data temphum;
 
+    /**
+     * Vyber dat z databazy
+     * @return
+     */
     public Data getData() {
         return temphum;
     }
 
+    /**
+     * Generovanie webovej stranky pre zobrazenie jednotlivych dat
+     * @param temphum
+     */
     public DataView(Data temphum) {
         super("Daat.ftl");
         this.temphum = temphum;

@@ -9,16 +9,24 @@ import io.dropwizard.views.View;
 import java.util.List;
 /**
  *
- * @author klein, simon
+ * @author klein
  */
 public class DataListView extends View{
 
     private List<Data> datas;
 
+    /**
+     * generovanie listu dat z databazy
+     * @return
+     */
     public List<Data> getDatas() {
         return datas;
     }
     
+    /**
+     * Vytvorenie statickej stranky pre zobrazenie listu dat
+     * @param temphums
+     */
     public DataListView(List<Data> temphums) {
         super("list.ftl");
         this.datas = temphums;

@@ -15,10 +15,18 @@ import java.util.List;
 public class DataChartView extends View{
     private List<Data> datas;
 
+    /**
+     * generovanie listu dat z databazy
+     * @return datas
+     */
     public List<Data> getDatas() {
         return datas;
     }
     
+    /**
+     *  Generovanie statickej stranky pre zobrazenie grafov
+     * @param temphums
+     */
     public DataChartView(List<Data> temphums) {
         super("chart.ftl");
         this.datas = temphums;

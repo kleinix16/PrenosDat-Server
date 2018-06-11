@@ -7,7 +7,7 @@ package sk.fri.uniza.microservice;
 
 /**
  *
- * @author klein, simon
+ * @author klein
  */
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -21,6 +21,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * Info pre vytvaranie tabulky v databaze a info pre vyhladavanie
+ * @author klein
+ */
 @Entity
 @Table(name = "datas")
 @NamedQueries({
@@ -37,21 +41,37 @@ public class Data implements Serializable {
 
     @Length(max = 20)
     private String dateAndTime;
-    
+
     private int temp;
-    
+
     private int hum;
 
+    /**
+     * prazdny konštruktor
+     */
     public Data() {
         // Jackson deserialization   
     }
 
+    /**
+     * Konštruktor bez ID - doplni databaza
+     * @param date
+     * @param temp
+     * @param hum
+     */
     public Data(String date, int temp, int hum) {
         this.dateAndTime = date;
         this.temp = temp;
         this.hum = hum;
     }
 
+    /**
+     * Plny konštrkutor
+     * @param id
+     * @param date
+     * @param temp
+     * @param hum
+     */
     public Data(long id, String date, int temp, int hum) {
         this.id = id;
         this.dateAndTime = date;
@@ -59,40 +79,84 @@ public class Data implements Serializable {
         this.hum = hum;
     }
 
+    /**
+     * getter Id
+     *
+     * @return id
+     */
     @JsonProperty
     public long getId() {
         return id;
     }
 
+    /**
+     * setter Id
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * setter Date
+     *
+     * @param date
+     */
     public void setDate(String date) {
         this.dateAndTime = date;
     }
 
+    /**
+     * getter Date
+     *
+     * @return dateAndTime
+     */
     @JsonProperty
     public String getDate() {
         return dateAndTime;
     }
-    
+
+    /**
+     * getter getTemp
+     *
+     * @return temp
+     */
     public int getTemp() {
         return temp;
     }
 
+    /**
+     * setter Temp
+     *
+     * @param temp
+     */
     public void setTemp(int temp) {
         this.temp = temp;
     }
-    
+
+    /**
+     * getter getHum
+     *
+     * @return hum
+     */
     public int getHum() {
         return hum;
     }
 
+    /**
+     * setter Hum
+     *
+     * @param hum
+     */
     public void setHum(int hum) {
         this.hum = hum;
     }
 
+    /**
+     *
+     * Hash calculator
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -101,6 +165,10 @@ public class Data implements Serializable {
         return hash;
     }
 
+    /**
+     * equals
+     *
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -7,8 +7,18 @@ package sk.fri.uniza.microservice;
 
 import io.dropwizard.auth.Authorizer;
 
+/**
+ * Basic authorization
+ * @author klein
+ */
 public class ExampleAuthorizer implements Authorizer<User> {
 
+    /**
+     * Pridavanie prav uzivatelom
+     * @param user
+     * @param role
+     * @return
+     */
     @Override
     public boolean authorize(User user, String role) {
         return user.getRoles() != null && user.getRoles().contains(role);

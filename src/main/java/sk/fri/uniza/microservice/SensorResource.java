@@ -22,10 +22,22 @@ public class SensorResource {
     private final String sensorID = "QSlkjdfdfs85dfsd4vdqqwAAAs8aasf47sf5ads7a";
     private final DataDAO dataDAO;
 
+    /**
+     * Vytovrenie spojenia s databazou
+     * @param temphumDAO
+     */
     public SensorResource(DataDAO temphumDAO) {
         this.dataDAO = temphumDAO;
     }
     
+    /**
+     * Neutorizovane pridavanie dat
+     * @param date
+     * @param temp
+     * @param hum
+     * @param id
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
