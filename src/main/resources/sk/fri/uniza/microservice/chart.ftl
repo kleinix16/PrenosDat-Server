@@ -4,6 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="refresh" content="15">
     <title>Chart</title>
 
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">
@@ -56,22 +57,22 @@
             </#items>          
         </#list>
 
-        
-
         var tempChart = new Chart(document.getElementById("tempChart"), {
             "type": "line",
             "data": {
                 "labels": lables,
                 "datasets": [{
                     "label": "Temperature °C",
-                    "data": dataTemp,
+                    "data": dataTemp[],
                     "fill": true,
                     "backgroundColor": "rgba(255,7 , 7, 0.2)",
                     "borderColor": "rgb(200,7,7)",
                     "lineTension": 0.4
                 }]
             },
-            "options": {}
+            "options": {
+                "animation": false
+            }
         });
 
         var humChart = new Chart(document.getElementById("humChart"), {
@@ -87,7 +88,9 @@
                     "lineTension": 0.4
                 }]
             },
-            "options": {}
+            "options": {
+                "animation": false
+            }
         });
 
     </script>

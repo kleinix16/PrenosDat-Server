@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	  <meta http-equiv="refresh" content="15">
       <title>Table</title>
       <link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
  
@@ -26,7 +27,7 @@
 	<script type="text/javascript" src="/assets/js/jquery-3.3.1.min.js"></script>
        
     <script type="text/javascript">
-        function deleteSaying(id){
+        function deleteData(id){
            $.ajax({
             url: '/data/'+id,
             type: 'DELETE',
@@ -77,7 +78,10 @@
 									<td class="cell100 column2">${data.date}</td>
 									<td class="cell100 column3">${data.temp}</td>
 									<td class="cell100 column4">${data.hum}</td>
-									<td class="cell100 column5"><a href="/data/edit/${data.id}"><i class="fas fa-pencil-alt"></i></a><a href="/data/${data.id}"><i class="fas fa-search"></a> <a href="javascript:void(0);" onclick="deleteData(${data.id});"><i class="fas fa-trash-alt"></i></a></td>
+									<td class="cell100 column5">
+									<a href="/data/edit/${data.id}"><i class="fas fa-pencil-alt"></i></a>
+									<a href="/data/${data.id}"><i class="fas fa-search"></i></a> 
+									<a href="javascript:void(0);" onclick="deleteData(${data.id});"><i class="fas fa-trash-alt"></i></a></td>
 								</tr>
 								</#items>
 							</tbody>
