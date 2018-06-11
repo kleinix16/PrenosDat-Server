@@ -20,6 +20,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import java.util.Map;
+import org.dhatim.dropwizard.jwt.cookie.authentication.JwtCookieAuthBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.hibernate.SessionFactory;
 
@@ -49,7 +50,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
-
+        
         bootstrap.addBundle(hibernateBundle);
         bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(new ViewBundle<HelloWorldConfiguration>() {
@@ -68,6 +69,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final DataDAO dao = new DataDAO(hibernateBundle.getSessionFactory());
 
         final DataResource temphumResource = new DataResource(dao);
+        final SensorResource sensorResource = new SensorResource(dao);
 
         final TemplateHealthCheck healthCheck
                 = new TemplateHealthCheck(configuration.getTemplate());
@@ -83,6 +85,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.healthChecks().register("template", healthCheck);
         
         environment.jersey().register(temphumResource);
+        environment.jersey().register(sensorResource);
 
     }
 

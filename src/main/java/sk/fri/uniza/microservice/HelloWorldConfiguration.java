@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.dhatim.dropwizard.jwt.cookie.authentication.JwtCookieAuthConfiguration;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class HelloWorldConfiguration extends Configuration {
@@ -25,6 +26,7 @@ public class HelloWorldConfiguration extends Configuration {
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
+    
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
 
