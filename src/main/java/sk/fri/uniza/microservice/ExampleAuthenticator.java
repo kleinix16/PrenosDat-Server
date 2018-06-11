@@ -28,8 +28,31 @@ public class ExampleAuthenticator implements Authenticator<BasicCredentials, Use
 
     @Override
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
-        if (VALID_USERS.containsKey(credentials.getUsername()) && "heslo".equals(credentials.getPassword())) {
-            return Optional.of(new User(credentials.getUsername(), VALID_USERS.get(credentials.getUsername())));
+        boolean correctLogin = false;
+        
+        if(VALID_USERS.containsKey(credentials.getUsername()))
+        {
+            switch(credentials.getUsername())
+            {
+                case "user" : 
+                    if("user".equals(credentials.getPassword()))
+                    {
+                        correctLogin = true;
+                    } break;
+                case "admin" : 
+                    if("admin".equals(credentials.getPassword()))
+                    {
+                        correctLogin = true;
+                    } break;
+                    
+            }
+            if(correctLogin)
+            {
+                return Optional.of(new User(credentials.getUsername(), VALID_USERS.get(credentials.getUsername())));
+            }
+            else{
+                return Optional.empty();
+            }
         }
         return Optional.empty();
     }

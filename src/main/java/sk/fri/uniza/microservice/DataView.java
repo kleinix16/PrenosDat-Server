@@ -9,7 +9,7 @@ import io.dropwizard.views.View;
 
 /**
  *
- * @author klein, simon
+ * @author klein
  */
 public class DataView extends View {
 

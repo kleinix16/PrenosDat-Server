@@ -57,13 +57,20 @@
             </#items>          
         </#list>
 
+        if (lables.length > 10){
+            console.log(lables.length);
+            lables = lables.slice(Math.max(lables.length - 10, 1))
+            dataTemp = dataTemp.slice(Math.max(dataTemp.length - 10, 1))
+            dataHum = dataHum.slice(Math.max(dataHum.length - 10, 1))
+        }
+
         var tempChart = new Chart(document.getElementById("tempChart"), {
             "type": "line",
             "data": {
                 "labels": lables,
                 "datasets": [{
                     "label": "Temperature °C",
-                    "data": dataTemp[],
+                    "data": dataTemp,
                     "fill": true,
                     "backgroundColor": "rgba(255,7 , 7, 0.2)",
                     "borderColor": "rgb(200,7,7)",

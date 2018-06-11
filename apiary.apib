@@ -1,0 +1,141 @@
+FORMAT: 1A
+HOST: http://localhost:8080
+
+# TomasKlein - Prenos Dat - server
+
+
+## Show sensor data by ID [/data/{id}]
+### GET [GET]
+@RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id (number) - ID of data, index in SQL database
+
++ Response 200 (sk.fri.uniza.microservice.Daat.ftl)
+
++ Response 404 (text/plain)
+
+   "Data in database by ID is not found"
+
+
+## Edit Data [/data/edit/{id}]
+### GET [GET]
+@RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id (number) - ID of data, index in SQL database
+
++ Response 200 (sk.fri.uniza.microservice.addEdit.ftl)
+            
++ Response 404 (text/plain)
+
+   "Data in database by ID is not found"
+   
+## Add Data - autentificate [/data/add]
+### GET [GET]
+@RolesAllowed("BASIC_USER")
+
++ Response 200 (sk.fri.uniza.microservice.addEdit.ftl)
+
+
+## Add  Data - everyone [/new]
+### POST [POST]
+
++ Attributes
+    + param1: date (string)  - Time of messuring
+    + param2: temp (number)  - Temperature
+    + param3: hum  (number)  - Humidity
+    + param4: ID   (string)  - Token
+
+
++ Request (application/x-www-form-urlencoded)
+
++ Response 200
+        Data wad add
+            
+            
+
+## New data - URL  [/data/new]
+### POST [POST]
+@RolesAllowed("BASIC_USER")
+
++ Attributes
+    + param1: date (string)  - Time of messuring
+    + param2: temp (number)  - Temperature
+    + param3: hum  (number)  - Humidity
+
+
++ Request (application/x-www-form-urlencoded)
+
++ Response 200
+
+## Edit Data  [/data/edit]
+### POST [POST]
+@RolesAllowed("BASIC_USER")
+
++ Attributes
+    + param1: date (string)  - Time of messuring
+    + param2: temp (number)  - Temperature
+    + param3: hum  (number)  - Humidity
+    + param4: ID   (string)  - ID
+
+
++ Request (application/x-www-form-urlencoded)
+
++ Response 200 (sk.fri.uniza.microservice.Daat.ftl)
+
+
+## Creat Data - JSON [/data]
+### POST   [POST]
+@RolesAllowed("BASIC_USER")
+
++ Request (application/json)
+
+        {
+        "temp": "temp",
+        "date": "date",
+        "hum": "hum"
+        }
+        
++ Response 200
+
+
+## Delete - data [/delete/{id}]
+### GET   [GET]
+@RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id (number) - ID of data, index in SQL database
+
++ Response 200 (sk.fri.uniza.microservice.list.ftl)
+
++ Response 404 (text/plain)
+
+   Data in database by ID is not found
+   
+## Delete - data - admin [/{id}]
+### DELETE   [DELETE]
+@RolesAllowed("ADMIN")
+
++ Parameters
+    + id (number) - ID of data, index in SQL database
+    
++ Request (application/json)
+
++ Response 200 (sk.fri.uniza.microservice.list.ftl)
+
++ Response 404 (text/plain)
+
+   Data in database by ID is not found
+   
+## Show page with datas [/data/list]
+### GET [GET]
+@RolesAllowed("BASIC_USER")
+
++ Response 200 (sk.fri.uniza.microservice.list.ftl)
+
+## Show page with charts [/data/chart]
+### GET [GET]
+@RolesAllowed("BASIC_USER")
+
++ Response 200 (sk.fri.uniza.microservice.chart.ftl)
