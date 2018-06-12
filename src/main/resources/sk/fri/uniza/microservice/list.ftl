@@ -46,7 +46,7 @@
 				<a class="navbar-brand" href="/data/list">List</a>
 				<a class="navbar-brand" href="/data/chart">Chart</a>
 				<a class="navbar-brand" href="/data/add">Add</a>
-				<a class="navbar-brand" href="#">Log out</a>	
+				<a class="navbar-brand" href="https://github.com/kleinix16/PrenosDat-Server">GITHUB</a>
 		</nav>
 
         <div class="limiter">

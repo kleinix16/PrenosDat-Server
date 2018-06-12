@@ -26,4 +26,3 @@
     <mapping class="sk.fri.uniza.microservice.UserInDB"/>
   </session-factory>
 </hibernate-configuration>
-
