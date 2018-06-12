@@ -22,7 +22,11 @@ import io.dropwizard.views.ViewBundle;
 import java.util.Map;
 import org.dhatim.dropwizard.jwt.cookie.authentication.JwtCookieAuthBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
@@ -51,6 +55,16 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public static void main(String[] args) throws Exception {
 
         new HelloWorldApplication().run(args);
+        
+        /*
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        SessionFactory buildSessionFactory = new MetadataSources(registry).addResource("hibernate.cfg.xml").buildMetadata().buildSessionFactory();
+        try (Session session = buildSessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(new UserInDB("admin","heslo","admin"));
+            session.save(new UserInDB("user","klein","user"));
+            session.getTransaction().commit();
+        }*/
     }
 
     /**

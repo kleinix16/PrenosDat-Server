@@ -11,10 +11,17 @@ import com.google.common.collect.ImmutableSet;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
+import java.util.List;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 /**
  * Basic authentification
@@ -38,7 +45,24 @@ public class ExampleAuthenticator implements Authenticator<BasicCredentials, Use
      */
     @Override
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
-        boolean correctLogin = false;
+        
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        SessionFactory buildSessionFactory = new MetadataSources(registry).addResource("hibernate.cfg1.xml").buildMetadata().buildSessionFactory();
+
+        Session session = buildSessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT s from UserInDB s");
+        List<UserInDB> user = query.getResultList();
+        session.close();
+
+            for (int i = 0; i < user.size(); i++) {
+               if (user.get(i).getPassword().equals(credentials.getPassword()) && user.get(i).getUserName().equals(credentials.getUsername())) {
+                    return Optional.of(new User(credentials.getUsername(), VALID_USERS.get(user.get(i).getRole())));
+                }
+            }
+        return Optional.empty();
+        
+        /*boolean correctLogin = false;
         
         if(VALID_USERS.containsKey(credentials.getUsername()))
         {
@@ -64,6 +88,6 @@ public class ExampleAuthenticator implements Authenticator<BasicCredentials, Use
                 return Optional.empty();
             }
         }
-        return Optional.empty();
+        return Optional.empty();*/
     }
 }

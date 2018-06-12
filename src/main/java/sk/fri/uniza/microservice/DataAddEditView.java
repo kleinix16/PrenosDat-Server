@@ -16,7 +16,7 @@ public class DataAddEditView extends View {
     private final Data temphum;
 
     /**
-     *  Vyhlada data v databaze a vracia ich ako navratovuhodnotu
+     *  Vyhlada data v databaze a vracia ich ako navratovu hodnotu
      * @return temphum
      */
     public Data getData() {
@@ -24,7 +24,7 @@ public class DataAddEditView extends View {
     }
 
     /**
-     *  Vygeneruje staticku stranku pre vpridavanie a editaciu Dat
+     *  Vygeneruje staticku stranku pre vkladanie a editaciu Dat
      * @param temphum
      */
     public DataAddEditView(Data temphum) {
